@@ -78,5 +78,14 @@ select transactionID, amount, case when amount >= 50000 then " High transaction"
 select*from transactions;
 
 insert into transactions values(203, 101, "2026-5-3",24000,"online"),(204,103, "2026-1-3",12000,"cash");
+-- select accountID, balance, rank() over (order by balance desc) as balancerank from accounts;  
 
+select accountid, balance, rank() over(order by balance desc) as balancerank from accounts;
 
+select transactionID, Amount, sum(amount) over ( order by transactionDate ) as RunnigTotal from Transactions;
+
+select transactionID, Amount, Avg(amount) over () as averagetransaction from Transactions;
+
+select*from accounts;
+
+select customerID, balance, rank() over(order by balance desc) as balance_rnk from Accounts;
