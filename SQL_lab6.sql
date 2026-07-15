@@ -88,6 +88,34 @@ select* from accounts where balance = ( select max(balance) from accounts);
    
     select accounttype, sum(balance) as type_balance from accounts group by accounttype having sum(balance) > 25000; 
 
+use bankingdb;
+
+select loanID, customerID, loanamount, rank() over( order by loanamount desc) as loanrank from loans;
+
+describe loans;
+
+select*from loans;
+
+insert into loans(loanID, customerID,loanamount, interestrate, startdate, enddate) values(301,101 ,500000, 8.50,'2025-01-15','2030-01-15'),(302,103, 70000, 9.25,'2025-02-10',  '2029-09-17'),(303,104,80000,7.78,'2025-08-16','2030-07-08');
+
+select loanID, customerID, loanamount, dense_rank() over( order by loanamount desc) as denserank from loans;
+
+select loanID, customerID, loanamount, row_number() over( order by loanamount desc ) as rownumber from loans;
+
+insert into loans(loanId, customerId, loanamount,interestrate, startdate, enddate) values(304, 104,40000,7.89,'2025-02-07','2030-09-08');
+
+select loanID, customerID, loanamount,row_number() over( partition by customerID order by loanamount desc) rownum from loans;
+
+select loanID, customerID, loanamount, sum(loanamount) over(order by loanamount desc) as runningtotal from loans;
+
+select loanId, customerID, loanamount, lag(loanamount) over( order by loanamount desc) as previousloanamount from loans;
+
+select loanId, customerId, loanamount, lead(loanamount) over(order by loanamount desc) as nextloanamount from loans;
+
+
+
+
+
    
   
 
